@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>creating dynamic cards</title>
+        <style>
+            #card{
+             width:fit-content;
+             background-color: cadetblue;
+             border:3px solid black;
+             padding:20px;
+             margin:10px;
+            }
+            input{
+                display:block;
+                padding:10px;
+                margin:10px;
+            }
+            #parent-submit{
+                text-align: center;
+            }
+            button{
+                padding:3px;
+            }
+            #d2{
+                
+                width:fit-content;
+                padding:50px;
+                display:block;
+                margin:150px;
+                align-items:flex-end;
+            }
+            .data-card{
+                display:inline-block;
+                margin:15px;
+               background-color: darkturquoise;
+                padding:15px;
+
+            }
+            .country{
+                font-size: 30px;
+                font-weight:bold;
+                color:black;
+            }
+            .capital{
+                font-size: 25px;
+                color:deeppink
+            }
+            .population{
+                font-size: 20px;
+                color:brown;
+            }
+            #savebtn, #cancelbtn{
+                display:none;
+            }
+        </style>
+    </head>
+    <body>
+               <h3><b>Level 2</b></h3>
+               <div class="d2">
+                <a href="create.jsp">continue</a><br><br>
+                <button id="b3"><a href="end.jsp">end</a></button>
+            </div>
+        <div id="card">
+            <input id="country" type="text" placeholder="country">
+            <input id="capital" type="text" placeholder="capital">
+            <input id="population" type="text" placeholder="population">
+        
+        <div id="parent-submit">
+            <button onclick="AddRecord()" id="addbtn">Add Record</button>
+            <button onclick="save()" id="savebtn">save</button>
+            <button onclick="cancelEdit()" id="cancelbtn">cancel</button>
+        </div>
+        </div>
+       
+        <script>
+            countryObj=document.getElementById("country");
+            capitalObj=document.getElementById("capital");
+            populationObj=document.getElementById("population");
+            info=[];
+            function AddRecord(){
+                tmpobj={country:countryObj.value,capital:capitalObj.value,population:populationObj.value};
+                info.push(tmpobj);
+               render();
+            }
+          
+            dobj=document.getElementById("d2");
+            function render(){
+                html="";
+                for(i=0;i<info.length;i++)
+                {
+                html+=`<div class="data-card">
+                      <div class="country">${info[i].country}</div>
+                      <div class="capital">${info[i].capital}</div>
+                      <div class="population">${info[i].population}</div>
+                      <div>
+                      <button onclick='exportEdit(${i})'>edit</button>
+                      </div>
+                        </div>`;
+             dobj.innerHTML=html;
+            }
+        }
+       
+        a1=document.getElementById("addbtn");
+        s1=document.getElementById("savebtn");
+        c1=document.getElementById("cancelbtn");
+        editIndex=-1;
+        function exportEdit(index){
+            editIndex=index;
+            a1.style.display='none';
+            s1.style.display='inline-block'
+            c1.style.display='inline-block'
+            editobj=info[index];
+            countryObj.value=editobj.country;
+        capitalObj.value=editobj.capital;
+        populationObj.value=editobj.population;
+        }
+        function save(){
+            tmpobj={country:countryObj.value,capital:capitalObj.value,population:populationObj.value};
+            info[editIndex]=tmpobj;
+            render();
+            changeButtons();
+            clear();
+
+        }
+        function cancelEdit(){
+            changeButtons();
+            clear();
+        }
+        function changeButtons(){
+            a1.style.display='inline-block'
+            s1.style.display='none';
+            c1.style.display='none';
+             }
+             function clear(){
+                countryObj.value='';
+                capitalObj.value='';
+                populationObj.value='';
+             }
+        
+       
+        </script>
+
+    </body>
+</html>

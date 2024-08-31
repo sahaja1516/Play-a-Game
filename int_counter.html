@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>timer bomb</title>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+
+    </head>
+    <body>
+        <div > </div>
+        <h2 id="i1">0</h2>
+        
+       
+        <button onclick="start()" id="i4">start</button>
+        <button onclick="stop()" id="i5">stop</button>
+        <button onclick="reverse()" id="i6">reverse</button>
+        <script>
+          let  count=0;
+          
+          y=document.getElementById("i4");
+        c=document.getElementById("i1");
+            function incre(){
+            count++;
+            c.innerHTML=count;
+           
+            }
+            function decre(){
+                count--;
+                c.innerHTML=count;
+            }
+            function start(){
+               
+                t=setInterval(incre,100);
+            }
+            function reverse(){
+                t=setInterval(decre,100);
+            }
+            function stop(){
+                clearInterval(t);
+
+            }
+            
+        </script>
+    </body>
+</html>
